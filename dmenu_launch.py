@@ -24,7 +24,7 @@ Arguments
 Contact / Links
 ---------------
 author : Felipe Silveira <felipe.alexandre@gmail.com>
-link   : https://github.com/fsilveir/dmenu_launcher
+link   : https://github.com/fsilveir/dmenu-launch
 
 """
 import os
@@ -62,8 +62,8 @@ def get_args():
     """Return arguments from stdin or print usage instructions."""
     parser = argparse.ArgumentParser(description='Simple dmenu launcher for passwords, notes and application shortcuts.')
     group = parser.add_mutually_exclusive_group()
-    
-    group.add_argument('--pass', dest='passw', action='store_true', 
+
+    group.add_argument('--pass', dest='passw', action='store_true',
                         help='Copy password from password store.')
     group.add_argument('--apps', action='store_true',
                         help='Quick launches a desktop application with exo-open.')
@@ -88,7 +88,7 @@ def dmenu_setup(args):
                           'suffix',             # file extension to look for
                           'font',               # dmenu font name and size
                           'nb','nf','sb','sf',  # dmenu color:
-                                                #   n = normal / s = selected, 
+                                                #   n = normal / s = selected,
                                                 #   b = background, f = foreground
                          ])
 
@@ -134,7 +134,7 @@ def dmenu_input(scheme):
     for basedir, dirs , files in os.walk(scheme.prefix, followlinks=True):
         dirs.sort()
         files.sort()
-        
+
         dirsubpath = basedir[len(scheme.prefix):].lstrip('/')
         for f in files:
             if f.endswith(scheme.suffix):
@@ -149,14 +149,14 @@ def dmenu_input(scheme):
 
     choice_lines = '\n'.join(map(str, choices))
     choice, errors = dmenu.communicate(choice_lines.encode('utf-8'))
-    
+
     if dmenu.returncode not in [0, 1] \
        or (dmenu.returncode == 1 and len(errors) != 0):
         print("'{} {}' returned {} and error:\n{}"
               .format(['dmenu'], ' '.join(args), dmenu.returncode,
                       errors.decode('utf-8')))
         sys.exit(1)
-    
+
     choice = choice.decode('utf-8').rstrip()
     return (scheme.prefix + "/" + choice + scheme.suffix) if choice in choices else sys.exit(1)
 
@@ -169,13 +169,13 @@ def take_action(scheme, choice):
         # Copies the username to middle button clipboard
         username = target.rsplit('/',1)[1].strip('\n')
         run_subprocess('echo "{}" | xclip'.format(username))
-        
+
         # Copy password to clipboard for 45 seconds
         run_subprocess('pass show -c "{}"'.format(target))
-    
+
     if (scheme.target == "notes"):
         run_subprocess('exo-open "{}"'.format(choice))
-    
+
     if (scheme.target == "apps") or (scheme.target == "search"):
         run_subprocess('exo-open "{}"'.format(choice))
 
