@@ -15,7 +15,7 @@ Following utils are required:
 ## Usage
 
 ```properties
-usage: dmenu-launch.py [-h] [--pass | --apps | --notes | --search]
+usage: dmenu_launch.py [-h] [--pass | --apps | --notes | --search]
 
 Simple dmenu launcher for passwords, docs, notes and application shortcuts.
 
@@ -34,26 +34,26 @@ OpenBox users just need to add the following to `~/.config/openbox/rc.xml` for t
 ```xml
    <keybind key="W-A">
     <action name="Execute">
-      <command>/usr/bin/dmenu-launch --pass</command>
+      <command>/usr/bin/dmenu_launch --pass</command>
     </action>
    </keybind>
    <keybind key="W-Q">
     <action name="Execute">
-      <command>/usr/bin/dmenu-launch --notes</command>
+      <command>/usr/bin/dmenu_launch --notes</command>
     </action>
    </keybind>
    <keybind key="W-O">
     <action name="Execute">
-      <command>/usr/bin/dmenu-launch --apps</command>
+      <command>/usr/bin/dmenu_launch --apps</command>
     </action>
    </keybind>
    <keybind key="W-F">
     <action name="Execute">
-      <command>/usr/bin/dmenu-launch --search</command>
+      <command>/usr/bin/dmenu_launch --search</command>
     </action>
    </keybind>
 ```
 
 ## Contact
 
-Create an [issue](https://github.com/fsilveir/dmenu-launch/issues) if you want to report a problem or ask for a new functionality any feedback is highly appreciated.
+Create an [issue](https://github.com/fsilveir/dmenu_launch/issues) if you want to report a problem or ask for a new functionality any feedback is highly appreciated.

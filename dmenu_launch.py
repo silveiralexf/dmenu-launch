@@ -10,7 +10,7 @@ Requirements
 
 Usage
 ---------------
-  $ dmenu-launch.py [-h] [--pass | --apps | --notes]
+  $ dmenu_launch.py [-h] [--pass | --apps | --notes]
 
 Arguments
 ---------------
@@ -24,7 +24,7 @@ Arguments
 Contact / Links
 ---------------
 author : Felipe Silveira <felipe.alexandre@gmail.com>
-link   : https://github.com/fsilveir/dmenu-launcher
+link   : https://github.com/fsilveir/dmenu_launcher
 
 """
 import os
