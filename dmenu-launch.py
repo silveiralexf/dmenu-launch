@@ -93,7 +93,7 @@ def dmenu_setup(args):
                          ])
 
     dmenu = ""
-    if (args.passw == True):
+    if args.passw:
         dmenu = scheme(
                     target='pass',
                     prefix = os.getenv('PASSWORD_STORE_DIR',os.path.normpath(os.path.expanduser('~/.password-store'))),
@@ -101,7 +101,7 @@ def dmenu_setup(args):
                     font='Dejavu Sans Mono:medium:size=18',
                     nb='#191919', nf='#ff0000', sb='#ff9318', sf='#191919',
                   )
-    if (args.apps == True):
+    if args.apps:
         dmenu = scheme(
                     target='apps',
                     prefix="/usr/share/applications",
@@ -109,7 +109,7 @@ def dmenu_setup(args):
                     font='Dejavu Sans Mono:medium:size=18',
                     nb='#191919', nf='#2e9ef4', sb='#2e9ef4', sf='#191919',
                   )
-    if (args.notes == True):
+    if args.notes:
         dmenu = scheme(
                     target='notes',
                     prefix=os.path.expanduser('~/git/notes'),
@@ -117,7 +117,7 @@ def dmenu_setup(args):
                     font='Dejavu Sans Mono:medium:size=18',
                     nb='#191919', nf='#2aa198', sb='#2aa198', sf='#191919',
                    )
-    if (args.search == True):
+    if args.search:
         dmenu = scheme(
                     target='search',
                     prefix=os.path.expanduser('~/work'),
