@@ -34,24 +34,36 @@ OpenBox users just need to add the following to `~/.config/openbox/rc.xml` for t
 ```xml
    <keybind key="W-A">
     <action name="Execute">
-      <command>/usr/bin/dmenu_launch --pass</command>
+      <command>/usr/bin/dmenu-launch --pass</command>
     </action>
    </keybind>
    <keybind key="W-Q">
     <action name="Execute">
-      <command>/usr/bin/dmenu_launch --notes</command>
+      <command>/usr/bin/dmenu-launch --notes</command>
     </action>
    </keybind>
    <keybind key="W-O">
     <action name="Execute">
-      <command>/usr/bin/dmenu_launch --apps</command>
+      <command>/usr/bin/dmenu-launch --apps</command>
     </action>
    </keybind>
    <keybind key="W-F">
     <action name="Execute">
-      <command>/usr/bin/dmenu_launch --search</command>
+      <command>/usr/bin/dmenu-launch --search</command>
     </action>
    </keybind>
+```
+
+## (Optional) i3wm Keybindings
+
+i3wm users just need to add the following to `~/.config/i3/config` for the suggested keybindings:
+
+```ini
+# Lauch dmenu custom wrappers (github.com/fsilveir/dmenu-launch)
+bindsym $mod+a exec /usr/bin/dmenu-launch --pass
+bindsym $mod+q exec /usr/bin/dmenu-launch --notes
+bindsym $mod+o exec /usr/bin/dmenu-launch --search
+bindsym $mod+d exec /usr/bin/dmenu-launch --apps
 ```
 
 ## Contact
