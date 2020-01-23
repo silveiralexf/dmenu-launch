@@ -6,7 +6,7 @@ Simple dmenu launcher for passwords, docs, notes and application shortcuts.
 
 Requirements
 ---------------
-  - dmenu, gpg, pass, xclip, exo-open
+  - dmenu, gpg, pass, xclip, exo-open, pkill
 
 Usage
 ---------------
@@ -41,12 +41,11 @@ def main():
     args   = get_args()
     scheme = dmenu_setup(args)
     choice = dmenu_input(scheme)
-
     take_action(scheme, choice)
 
 def check_req_utils():
     """Checks if dmenu and other mandatory utilities can be found on target machine."""
-    utils = (['dmenu', 'gpg', 'pass', 'xclip', 'exo-open'])
+    utils = (['dmenu', 'gpg', 'pass', 'xclip', 'exo-open', 'pkill'])
     for util in utils:
         if find_executable(util) is None:
             print("ERROR: Util '{}' is missing, install it before proceeding! Exiting!").format(util)
@@ -88,15 +87,20 @@ def dmenu_setup(args):
                           'suffix',             # file extension to look for
                           'font',               # dmenu font name and size
                           'nb','nf','sb','sf',  # dmenu color:
-                                                #   n = normal / s = selected,
-                                                #   b = background, f = foreground
+                                                #   n=normal / s=selected,
+                                                #   b=background, f=foreground
                          ])
 
     dmenu = ""
     if args.passw:
         dmenu = scheme(
                     target='pass',
-                    prefix = os.getenv('PASSWORD_STORE_DIR',os.path.normpath(os.path.expanduser('~/.password-store'))),
+                    prefix = os.getenv\
+                        ('PASSWORD_STORE_DIR',os.path.normpath
+                            (os.path.expanduser\
+                                ('~/.password-store')\
+                            )\
+                        ),
                     suffix=".gpg",
                     font='Dejavu Sans Mono:medium:size=18',
                     nb='#191919', nf='#ff0000', sb='#ff9318', sf='#191919',
@@ -123,8 +127,9 @@ def dmenu_setup(args):
                     prefix=os.path.expanduser('~/work'),
                     suffix="",
                     font='Dejavu Sans Mono:medium:size=18',
-                    nb='#191919', nf='#2aa198', sb='#2aa198', sf='#191919',
+                    nb='#191919', nf='#2aa198', sb='#11D91E', sf='#191919',
                    )
+    
     check_dir_exist(dmenu)
     return dmenu
 
@@ -141,7 +146,12 @@ def dmenu_input(scheme):
                 full_path = os.path.join(dirsubpath, f.replace(scheme.suffix, '', -1))
                 choices += [full_path]
 
-    args = ["-fn", scheme.font, "-nb", scheme.nb, "-nf", scheme.nf, "-sb", scheme.sb, "-sf", scheme.sf, "-i" ]
+    args = ["-fn", scheme.font, \
+            "-nb", scheme.nb, \
+            "-nf", scheme.nf, \
+            "-sb", scheme.sb, \
+            "-sf", scheme.sf, \
+            "-i" ]
     dmenu = subprocess.Popen(['dmenu'] + args,
                              stdin=subprocess.PIPE,
                              stderr=subprocess.PIPE,
@@ -158,10 +168,14 @@ def dmenu_input(scheme):
         sys.exit(1)
 
     choice = choice.decode('utf-8').rstrip()
+
     return (scheme.prefix + "/" + choice + scheme.suffix) if choice in choices else sys.exit(1)
 
 def take_action(scheme, choice):
-    """Copies password to clipboard, launch app or notes depending on user's input."""
+    """Copies password to clipboard, launch app / notes depending on input."""
+    
+    xclip_cleanup()
+    
     if (scheme.target == "pass"):
         _target = (str(choice).replace(scheme.prefix,'',-1))
         target = (_target[1:].replace(scheme.suffix,'',-1))
@@ -185,6 +199,10 @@ def run_subprocess(cmd):
                           stderr=subprocess.PIPE,
                           stdout=subprocess.PIPE,
                           shell=True,)
+
+def xclip_cleanup():
+    """Clean-up xclip processes that might be hung."""
+    run_subprocess('pkill xclip')
 
 # ------------------------------------------------------------------------------
 # Main
