@@ -11,6 +11,7 @@ Following utils are required:
 - [pass](https://www.passwordstore.org/)
 - [xclip](https://github.com/astrand/xclip)
 - [exo-open](http://manpages.ubuntu.com/manpages/bionic/man1/exo-open.1.html)
+- [pkill](https://en.wikipedia.org/wiki/Pkill)
 
 ## Usage
 
