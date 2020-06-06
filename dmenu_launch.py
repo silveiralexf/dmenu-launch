@@ -48,7 +48,7 @@ def check_req_utils():
     utils = (['dmenu', 'gpg', 'pass', 'xclip', 'exo-open', 'pkill'])
     for util in utils:
         if find_executable(util) is None:
-            print("ERROR: Util '{}' is missing, install it before proceeding! Exiting!").format(util)
+            print("ERROR: Util '{}' is missing, install it before proceeding! Exiting!".format(util))
             sys.exit(1)
 
 def check_dir_exist(scheme):
